@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Dog Images</title>
+
+<style type="text/css">
+
+   #dog-image{
+   	height:  auto;
+   	width:  auto;
+   }
+
+   form{
+   	display: flex;
+   	justify-content: space-around;
+   	align-items: center;
+   	background-color: black;
+   	height: 200px;
+   }
+
+   form button{
+   	height: 50px;
+   	width: 200px;
+   }
+
+   #dog-img-btn{
+   	 display: flex;
+   	 justify-content: space-around;
+   	 align-items: center;
+   	 background-color: grey;
+   	 height: 100vh;
+   	 position: relative;
+   }
+
+   #next a{
+   	border: 1px solid black;
+   	font-size: 2rem;
+   	color: black;
+   	text-decoration: none;
+   }
+	
+</style>
+
+</head>
+<body>
+
+	<form action="">
+
+		<select id="dog-breed"></select>
+
+		<button> Get Image</button>
+		
+	</form>
+
+ <div id="dog-img-btn">
+
+    <div id="dog-image">
+
+     </div>
+
+     <div id="next">
+     	<a href="">Next</a>
+     </div>
+
+ </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+	var dogImage = $('#dog-image');
+	var dropdown = $('#dog-breed');
+	var allowSubmit = true;
+    var breed;
+
+	$.get('https://dog.ceo/api/breeds/list/all', function(data){
+             var dogBreeds = data.message;
+             for(let breed in dogBreeds){
+            dropdown.append('<option> '+ breed + '</option>');
+        }
+
+	});
+
+
+dropdown.change(function () {
+    allowSubmit = true;
+});
+
+$("form button").click(function (e) {
+    e.preventDefault();
+
+    if (allowSubmit) {
+        breed = dropdown.val();
+        displayDog(breed);
+        allowSubmit = false;
+    }
+
+});
+
+$("#next a").click(function (e) {
+    e.preventDefault();
+    if (breed !== undefined) {
+        displayDog(breed);
+    }
+});
+
+
+	function displayDog(breed){
+       let url = "https://dog.ceo/api/breed/" + breed + "/images/random";
+       $("#dog-image img").remove();
+
+    $.get(url, function (data, status) {
+        let imageUrl = data.message;
+        dogImage.append('<img src="' + imageUrl + '" alt="' + breed + '">');
+    });
+
+	}
+
+	
+</script>
+
+</body>
+</html>

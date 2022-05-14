@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Promise</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		var userLog = true;
+		var promise = new Promise((resolve,reject)=>{
+			setTimeout(()=>{
+				 if(userLog){
+                   resolve();
+                 }else{
+                   reject();
+                }
+            },1000);   
+     	});
+
+        setTimeout(()=>{
+           userLog = false;
+        },500);
+
+     	promise.then(()=>{
+     		console.log("Logged in!")
+     	}).catch(()=>{
+     		console.log("Not logged in!")
+     	});
+
+	</script>
+
+</body>
+</html>

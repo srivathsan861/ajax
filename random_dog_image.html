@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Dog Image</title>
+
+	<style type="text/css">
+
+		#image-container{
+			margin: 10px;
+			height: auto;
+			width: auto;
+		}
+
+	</style>
+
+</head>
+<body>
+
+	<button id="fetch-dog"> Fetch Dog Images</button>
+
+	<div id="image-container">
+		<img id="dog-image">
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+
+		//using jquery and vannilaJs
+
+		// function fetchDogImage(){
+
+  //         var xhrRequest = new XMLHttpRequest();
+
+  //         xhrRequest.onload = function(){
+  //         	console.log(xhrRequest.response);
+  //         	var responseJSON = JSON.parse(xhrRequest.response);
+  //           var imageURL = responseJSON.message;
+  //           $('#dog-image').attr('src',imageURL);
+  //         };
+
+              // xhrRequest.onerror = function(){
+              // 	console.log("Error");
+              // };
+    
+  //         xhrRequest.open('get','https://dog.ceo/api/breeds/image/random');
+  //         xhrRequest.send();
+		// }
+
+		// $('#fetch-dog').click(fetchDogImage);
+
+		//------------------------------------------------------------------------------------------------------------
+
+		//fully using jquery
+
+
+      // function fetchDogImage(){
+      //     $.ajax({
+      //     	url: 'https://dog.ceo/api/breeds/image/random',
+      //     	method:'get',
+      //     	success: function(data){
+      //     		var imageURL = data.message;
+      //     		$('#dog-image').attr('src',imageURL);
+      //     	}
+      //     }).fail(function(){
+      //		console.log("Error");
+      //	});
+      // }
+
+      // $('#fetch-dog').click(fetchDogImage);
+
+      //----------------------------------------------------------------------------------------------------------------------
+
+      	//fully using jquery - more simplified
+
+        function fetchDogImage(){
+      	$.get('https://dog.ceo/api/breeds/image/random',function(data){
+               var imageURL = data.message;
+               $('#dog-image').attr('src',imageURL);
+      	}).fail(function(){
+      		console.log("Error");
+      	});
+        }
+
+        $('#fetch-dog').click(fetchDogImage);
+
+	</script>
+
+</body>
+</html>
